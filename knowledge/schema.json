@@ -1,0 +1,607 @@
+{
+  "dialect": "sqlite",
+  "tables": {
+    "Album": {
+      "create_sql": "CREATE TABLE [Album]\n(\n    [AlbumId] INTEGER  NOT NULL,\n    [Title] NVARCHAR(160)  NOT NULL,\n    [ArtistId] INTEGER  NOT NULL,\n    CONSTRAINT [PK_Album] PRIMARY KEY  ([AlbumId]),\n    FOREIGN KEY ([ArtistId]) REFERENCES [Artist] ([ArtistId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(160)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Artist",
+          "source_column": "ArtistId",
+          "target_column": "ArtistId"
+        }
+      ]
+    },
+    "Artist": {
+      "create_sql": "CREATE TABLE [Artist]\n(\n    [ArtistId] INTEGER  NOT NULL,\n    [Name] NVARCHAR(120),\n    CONSTRAINT [PK_Artist] PRIMARY KEY  ([ArtistId])\n)",
+      "columns": [
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": []
+    },
+    "Customer": {
+      "create_sql": "CREATE TABLE [Customer]\n(\n    [CustomerId] INTEGER  NOT NULL,\n    [FirstName] NVARCHAR(40)  NOT NULL,\n    [LastName] NVARCHAR(20)  NOT NULL,\n    [Company] NVARCHAR(80),\n    [Address] NVARCHAR(70),\n    [City] NVARCHAR(40),\n    [State] NVARCHAR(40),\n    [Country] NVARCHAR(40),\n    [PostalCode] NVARCHAR(10),\n    [Phone] NVARCHAR(24),\n    [Fax] NVARCHAR(24),\n    [Email] NVARCHAR(60)  NOT NULL,\n    [SupportRepId] INTEGER,\n    CONSTRAINT [PK_Customer] PRIMARY KEY  ([CustomerId]),\n    FOREIGN KEY ([SupportRepId]) REFERENCES [Employee] ([EmployeeId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Company",
+          "type": "NVARCHAR(80)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "SupportRepId",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Employee",
+          "source_column": "SupportRepId",
+          "target_column": "EmployeeId"
+        }
+      ]
+    },
+    "Employee": {
+      "create_sql": "CREATE TABLE [Employee]\n(\n    [EmployeeId] INTEGER  NOT NULL,\n    [LastName] NVARCHAR(20)  NOT NULL,\n    [FirstName] NVARCHAR(20)  NOT NULL,\n    [Title] NVARCHAR(30),\n    [ReportsTo] INTEGER,\n    [BirthDate] DATETIME,\n    [HireDate] DATETIME,\n    [Address] NVARCHAR(70),\n    [City] NVARCHAR(40),\n    [State] NVARCHAR(40),\n    [Country] NVARCHAR(40),\n    [PostalCode] NVARCHAR(10),\n    [Phone] NVARCHAR(24),\n    [Fax] NVARCHAR(24),\n    [Email] NVARCHAR(60),\n    CONSTRAINT [PK_Employee] PRIMARY KEY  ([EmployeeId]),\n    FOREIGN KEY ([ReportsTo]) REFERENCES [Employee] ([EmployeeId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "EmployeeId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(20)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(30)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "ReportsTo",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BirthDate",
+          "type": "DATETIME",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "HireDate",
+          "type": "DATETIME",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Employee",
+          "source_column": "ReportsTo",
+          "target_column": "EmployeeId"
+        }
+      ]
+    },
+    "Genre": {
+      "create_sql": "CREATE TABLE [Genre]\n(\n    [GenreId] INTEGER  NOT NULL,\n    [Name] NVARCHAR(120),\n    CONSTRAINT [PK_Genre] PRIMARY KEY  ([GenreId])\n)",
+      "columns": [
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": []
+    },
+    "Invoice": {
+      "create_sql": "CREATE TABLE [Invoice]\n(\n    [InvoiceId] INTEGER  NOT NULL,\n    [CustomerId] INTEGER  NOT NULL,\n    [InvoiceDate] DATETIME  NOT NULL,\n    [BillingAddress] NVARCHAR(70),\n    [BillingCity] NVARCHAR(40),\n    [BillingState] NVARCHAR(40),\n    [BillingCountry] NVARCHAR(40),\n    [BillingPostalCode] NVARCHAR(10),\n    [Total] NUMERIC(10,2)  NOT NULL,\n    CONSTRAINT [PK_Invoice] PRIMARY KEY  ([InvoiceId]),\n    FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([CustomerId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "DATETIME",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BillingAddress",
+          "type": "NVARCHAR(70)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BillingCity",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BillingState",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BillingCountry",
+          "type": "NVARCHAR(40)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "BillingPostalCode",
+          "type": "NVARCHAR(10)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Total",
+          "type": "NUMERIC(10,2)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Customer",
+          "source_column": "CustomerId",
+          "target_column": "CustomerId"
+        }
+      ]
+    },
+    "InvoiceLine": {
+      "create_sql": "CREATE TABLE [InvoiceLine]\n(\n    [InvoiceLineId] INTEGER  NOT NULL,\n    [InvoiceId] INTEGER  NOT NULL,\n    [TrackId] INTEGER  NOT NULL,\n    [UnitPrice] NUMERIC(10,2)  NOT NULL,\n    [Quantity] INTEGER  NOT NULL,\n    CONSTRAINT [PK_InvoiceLine] PRIMARY KEY  ([InvoiceLineId]),\n    FOREIGN KEY ([InvoiceId]) REFERENCES [Invoice] ([InvoiceId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION,\n    FOREIGN KEY ([TrackId]) REFERENCES [Track] ([TrackId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "InvoiceLineId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Quantity",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Track",
+          "source_column": "TrackId",
+          "target_column": "TrackId"
+        },
+        {
+          "constraint_id": 1,
+          "column_position": 0,
+          "target_table": "Invoice",
+          "source_column": "InvoiceId",
+          "target_column": "InvoiceId"
+        }
+      ]
+    },
+    "MediaType": {
+      "create_sql": "CREATE TABLE [MediaType]\n(\n    [MediaTypeId] INTEGER  NOT NULL,\n    [Name] NVARCHAR(120),\n    CONSTRAINT [PK_MediaType] PRIMARY KEY  ([MediaTypeId])\n)",
+      "columns": [
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": []
+    },
+    "Playlist": {
+      "create_sql": "CREATE TABLE [Playlist]\n(\n    [PlaylistId] INTEGER  NOT NULL,\n    [Name] NVARCHAR(120),\n    CONSTRAINT [PK_Playlist] PRIMARY KEY  ([PlaylistId])\n)",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": []
+    },
+    "PlaylistTrack": {
+      "create_sql": "CREATE TABLE [PlaylistTrack]\n(\n    [PlaylistId] INTEGER  NOT NULL,\n    [TrackId] INTEGER  NOT NULL,\n    CONSTRAINT [PK_PlaylistTrack] PRIMARY KEY  ([PlaylistId], [TrackId]),\n    FOREIGN KEY ([PlaylistId]) REFERENCES [Playlist] ([PlaylistId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION,\n    FOREIGN KEY ([TrackId]) REFERENCES [Track] ([TrackId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 2
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "Track",
+          "source_column": "TrackId",
+          "target_column": "TrackId"
+        },
+        {
+          "constraint_id": 1,
+          "column_position": 0,
+          "target_table": "Playlist",
+          "source_column": "PlaylistId",
+          "target_column": "PlaylistId"
+        }
+      ]
+    },
+    "Track": {
+      "create_sql": "CREATE TABLE [Track]\n(\n    [TrackId] INTEGER  NOT NULL,\n    [Name] NVARCHAR(200)  NOT NULL,\n    [AlbumId] INTEGER,\n    [MediaTypeId] INTEGER  NOT NULL,\n    [GenreId] INTEGER,\n    [Composer] NVARCHAR(220),\n    [Milliseconds] INTEGER  NOT NULL,\n    [Bytes] INTEGER,\n    [UnitPrice] NUMERIC(10,2)  NOT NULL,\n    CONSTRAINT [PK_Track] PRIMARY KEY  ([TrackId]),\n    FOREIGN KEY ([AlbumId]) REFERENCES [Album] ([AlbumId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION,\n    FOREIGN KEY ([GenreId]) REFERENCES [Genre] ([GenreId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION,\n    FOREIGN KEY ([MediaTypeId]) REFERENCES [MediaType] ([MediaTypeId]) \n\t\tON DELETE NO ACTION ON UPDATE NO ACTION\n)",
+      "columns": [
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 1
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(200)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Composer",
+          "type": "NVARCHAR(220)",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Milliseconds",
+          "type": "INTEGER",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "Bytes",
+          "type": "INTEGER",
+          "not_null_declared": false,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "not_null_declared": true,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_id": 0,
+          "column_position": 0,
+          "target_table": "MediaType",
+          "source_column": "MediaTypeId",
+          "target_column": "MediaTypeId"
+        },
+        {
+          "constraint_id": 1,
+          "column_position": 0,
+          "target_table": "Genre",
+          "source_column": "GenreId",
+          "target_column": "GenreId"
+        },
+        {
+          "constraint_id": 2,
+          "column_position": 0,
+          "target_table": "Album",
+          "source_column": "AlbumId",
+          "target_column": "AlbumId"
+        }
+      ]
+    }
+  },
+  "invoice_date_range": {
+    "min": "2009-01-01 00:00:00",
+    "max": "2013-12-22 00:00:00"
+  }
+}

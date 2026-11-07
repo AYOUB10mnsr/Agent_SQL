@@ -1,0 +1,294 @@
+{
+  "database_file": "Chinook_Sqlite.sqlite",
+  "database_sha256": "bdf635be69850bd3be09c9a2dbeef7ddfb80036bd3ef3381383cd03b61e4a61a",
+  "date_min": "2009-01-01 00:00:00",
+  "date_max": "2013-12-22 00:00:00",
+  "invoice_line_consistency": "passed",
+  "cases": [
+    {
+      "id": "nombre_factures",
+      "question": "Combien de factures contient la base ?",
+      "unit": "factures",
+      "sql": "SELECT COUNT(*) FROM Invoice",
+      "expected_result": [
+        [
+          412
+        ]
+      ],
+      "validation": "accord_sql_python"
+    },
+    {
+      "id": "montant_total",
+      "question": "Quel est le montant total facturé sur toute la période ?",
+      "unit": "centiemes_unite_monetaire",
+      "sql": "\n                    SELECT SUM(CAST(ROUND(Total * 100) AS INTEGER))\n                    FROM Invoice\n                ",
+      "expected_result": [
+        [
+          232860
+        ]
+      ],
+      "validation": "accord_sql_python"
+    },
+    {
+      "id": "quantite_totale",
+      "question": "Combien d'unités ont été vendues sur toute la période ?",
+      "unit": "unites",
+      "sql": "SELECT SUM(Quantity) FROM InvoiceLine",
+      "expected_result": [
+        [
+          2240
+        ]
+      ],
+      "validation": "accord_sql_python"
+    },
+    {
+      "id": "ventes_mensuelles",
+      "question": "Quel est le montant facturé par mois sur toute la période ?",
+      "unit": "centiemes_unite_monetaire",
+      "sql": "\n                    SELECT\n                        strftime('%Y-%m', InvoiceDate) AS mois,\n                        SUM(CAST(ROUND(Total * 100) AS INTEGER))\n                    FROM Invoice\n                    GROUP BY strftime('%Y-%m', InvoiceDate)\n                    ORDER BY mois\n                ",
+      "expected_result": [
+        [
+          "2009-01",
+          3564
+        ],
+        [
+          "2009-02",
+          3762
+        ],
+        [
+          "2009-03",
+          3762
+        ],
+        [
+          "2009-04",
+          3762
+        ],
+        [
+          "2009-05",
+          3762
+        ],
+        [
+          "2009-06",
+          3762
+        ],
+        [
+          "2009-07",
+          3762
+        ],
+        [
+          "2009-08",
+          3762
+        ],
+        [
+          "2009-09",
+          3762
+        ],
+        [
+          "2009-10",
+          3762
+        ],
+        [
+          "2009-11",
+          3762
+        ],
+        [
+          "2009-12",
+          3762
+        ],
+        [
+          "2010-01",
+          5262
+        ],
+        [
+          "2010-02",
+          4662
+        ],
+        [
+          "2010-03",
+          4462
+        ],
+        [
+          "2010-04",
+          3762
+        ],
+        [
+          "2010-05",
+          3762
+        ],
+        [
+          "2010-06",
+          3762
+        ],
+        [
+          "2010-07",
+          3762
+        ],
+        [
+          "2010-08",
+          3762
+        ],
+        [
+          "2010-09",
+          3663
+        ],
+        [
+          "2010-10",
+          3762
+        ],
+        [
+          "2010-11",
+          3762
+        ],
+        [
+          "2010-12",
+          3762
+        ],
+        [
+          "2011-01",
+          3762
+        ],
+        [
+          "2011-02",
+          3762
+        ],
+        [
+          "2011-03",
+          3762
+        ],
+        [
+          "2011-04",
+          5162
+        ],
+        [
+          "2011-05",
+          4262
+        ],
+        [
+          "2011-06",
+          5062
+        ],
+        [
+          "2011-07",
+          3762
+        ],
+        [
+          "2011-08",
+          3762
+        ],
+        [
+          "2011-09",
+          3762
+        ],
+        [
+          "2011-10",
+          3762
+        ],
+        [
+          "2011-11",
+          2376
+        ],
+        [
+          "2011-12",
+          3762
+        ],
+        [
+          "2012-01",
+          3762
+        ],
+        [
+          "2012-02",
+          3762
+        ],
+        [
+          "2012-03",
+          3762
+        ],
+        [
+          "2012-04",
+          3762
+        ],
+        [
+          "2012-05",
+          3762
+        ],
+        [
+          "2012-06",
+          3762
+        ],
+        [
+          "2012-07",
+          3962
+        ],
+        [
+          "2012-08",
+          4762
+        ],
+        [
+          "2012-09",
+          4671
+        ],
+        [
+          "2012-10",
+          4262
+        ],
+        [
+          "2012-11",
+          3762
+        ],
+        [
+          "2012-12",
+          3762
+        ],
+        [
+          "2013-01",
+          3762
+        ],
+        [
+          "2013-02",
+          2772
+        ],
+        [
+          "2013-03",
+          3762
+        ],
+        [
+          "2013-04",
+          3366
+        ],
+        [
+          "2013-05",
+          3762
+        ],
+        [
+          "2013-06",
+          3762
+        ],
+        [
+          "2013-07",
+          3762
+        ],
+        [
+          "2013-08",
+          3762
+        ],
+        [
+          "2013-09",
+          3762
+        ],
+        [
+          "2013-10",
+          3762
+        ],
+        [
+          "2013-11",
+          4962
+        ],
+        [
+          "2013-12",
+          3862
+        ]
+      ],
+      "validation": "accord_sql_python"
+    }
+  ]
+}

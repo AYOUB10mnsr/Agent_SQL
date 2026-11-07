@@ -1,0 +1,87 @@
+{
+  "business_description": "Magasin de médias numériques : catalogue de titres, clients et factures.",
+  "sql_dialect": "sqlite",
+  "response_language": "fr",
+  "currency": {
+    "code": null,
+    "rule": "Ne pas afficher de symbole monétaire tant que la devise n'est pas confirmée."
+  },
+  "tables": {
+    "Invoice": {
+      "description": "Factures des clients.",
+      "grain": "Une ligne par facture.",
+      "primary_key": ["InvoiceId"]
+    },
+    "InvoiceLine": {
+      "description": "Articles présents sur les factures.",
+      "grain": "Une ligne par article facturé.",
+      "primary_key": ["InvoiceLineId"]
+    },
+    "Customer": {
+      "description": "Clients du magasin.",
+      "grain": "Une ligne par client.",
+      "primary_key": ["CustomerId"]
+    },
+    "Track": {
+      "description": "Titres du catalogue.",
+      "grain": "Une ligne par titre.",
+      "primary_key": ["TrackId"]
+    },
+    "Employee": {
+      "description": "Employés, dont les représentants associés aux clients.",
+      "grain": "Une ligne par employé.",
+      "primary_key": ["EmployeeId"]
+    }
+  },
+  "metrics": {
+    "montant_facture": {
+      "description": "Somme des montants des factures.",
+      "expression": "SUM(Invoice.Total)",
+      "date_column": "Invoice.InvoiceDate",
+      "synonyms": ["montant des ventes", "ventes en valeur"]
+    },
+    "nombre_factures": {
+      "description": "Nombre de factures distinctes.",
+      "expression": "COUNT(DISTINCT Invoice.InvoiceId)",
+      "date_column": "Invoice.InvoiceDate",
+      "synonyms": ["nombre de factures", "nombre d'achats"]
+    },
+    "quantite_vendue": {
+      "description": "Somme des quantités facturées.",
+      "expression": "SUM(InvoiceLine.Quantity)",
+      "date_column": "Invoice.InvoiceDate",
+      "synonyms": ["quantité vendue", "nombre d'unités vendues"]
+    },
+    "montant_lignes": {
+      "description": "Montant calculé à partir des prix et quantités facturés.",
+      "expression": "SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity)",
+      "date_column": "Invoice.InvoiceDate",
+      "synonyms": ["ventes par titre", "ventes par genre"]
+    },
+    "panier_moyen": {
+      "description": "Montant moyen par facture, calculé au niveau des factures.",
+      "expression": "AVG(Invoice.Total)",
+      "date_column": "Invoice.InvoiceDate",
+      "synonyms": ["panier moyen", "montant moyen par facture"]
+    }
+  },
+  "rules": [
+    "Utiliser Invoice.InvoiceDate comme date des ventes.",
+    "Demander une précision si ventes peut désigner un montant, un nombre de factures ou une quantité.",
+    "Demander l'année si elle manque et n'est pas présente dans le contexte.",
+    "Pour les ventes par pays, utiliser Invoice.BillingCountry et préciser pays de facturation.",
+    "Utiliser InvoiceLine.UnitPrice pour le prix historique de vente. Track.UnitPrice est le prix du catalogue.",
+    "Ne pas sommer Invoice.Total après une jointure qui multiplie les lignes d'une même facture.",
+    "Ne pas calculer AVG(Invoice.Total) sur des factures dupliquées par une jointure.",
+    "Pour analyser les ventes par titre, genre, album ou artiste, utiliser les montants des lignes de facture.",
+    "SupportRepId indique le représentant associé au client, pas nécessairement la personne ayant réalisé chaque vente.",
+    "Une période sans facture ne permet pas à elle seule de déterminer si les données sont absentes ou les ventes nulles."
+  ],
+  "unsupported_requests": [
+    "Marge ou bénéfice : coûts d'achat absents du schéma.",
+    "Stock disponible : données de stock absentes.",
+    "Encaissements et impayés : suivi des paiements absent.",
+    "Factures annulées : statut d'annulation absent.",
+    "Modification ou suppression des données."
+  ]
+}
